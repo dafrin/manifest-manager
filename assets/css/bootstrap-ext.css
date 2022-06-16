@@ -1,0 +1,62 @@
+/* выставлять для колонок, в которых есть кнопки */
+table .buttons-column {
+    width: 50px;
+}
+
+/* экстра маленькая таблица */
+.table-xsm th,
+.table-xsm td {
+    padding: 0.2rem;
+}
+
+/* цвет хедера таблицы */
+.table .thead-dark th {
+    color: #fff;
+    background-color: #8f908b;
+    border-color: #8f908b;
+}
+
+/* данные блок отталкивает всех на 3px вниз */
+.v-separated-bottom {
+    margin-bottom: 3px;
+}
+
+/* данные блок делает отступ на 3px слева от соседнего блока */
+.v-separated-left {
+    margin-left: 3px;
+}
+
+/* данные блок отталкивает всех на 3px вверх */
+.v-separated-top {
+    margin-top: 3px;
+}
+
+/* надо добавлять в select что-бы он занимал место по контенту */
+.input-group > .custom-select-inline {
+    width: auto;
+    flex-shrink: 0;
+    flex-grow: unset;
+}
+
+.btn-xsm, .btn-group-xsm > .btn {
+    padding: 0.125rem 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    border-radius: 0.2rem;
+}
+
+/* выставляет для карточки маленький отступ */
+.card-body-sm {
+    padding: 0.5rem;
+}
+
+/* используется в карточках, если требуется ограничить высоту тела */
+.card-body-overflow {
+    overflow: auto;
+    max-height: 250px;
+}
+
+/* мятный бэк */
+.bg-mint {
+    background-color: #86dab74f;
+}

@@ -1,0 +1,12 @@
+{% extends 'default/layout/small.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header bg-mint">
+            {{ cardHeader }}
+        </div>
+        <div class="card-body">
+            {{ include('default/form_raw.html.twig', {form: form}, with_context = false) }}
+        </div>
+    </div>
+{% endblock %}

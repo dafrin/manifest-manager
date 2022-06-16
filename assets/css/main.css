@@ -1,0 +1,38 @@
+/* класс для основного хэдера. В него обёрнуто меню */
+.header {
+    margin-bottom: 5px;
+}
+
+/* объявление констант */
+:root{
+    --magnifier-symbol: "\1F50D";
+}
+
+/* класс добавляющий иконку поиска */
+.find-button::after {
+    content: var(--magnifier-symbol);
+}
+
+/* уменьшает размер текста */
+.smallText {
+    font-size: small;
+}
+
+/* при добавлении данного класса, весь объект будет заблюрен */
+.blurElement {
+    filter: blur(1px);
+    background-color: #ccc;
+}
+
+.btn.btn-loading .fa-spin {
+    display: block;
+}
+.btn.btn-loading::after {
+    content: none;
+}
+.btn-loading .btn-text {
+    display: none;
+}
+.btn .fa-spin {
+    display: none;
+}

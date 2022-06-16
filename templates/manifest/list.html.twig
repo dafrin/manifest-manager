@@ -1,0 +1,110 @@
+{% extends 'default/layout/small.html.twig' %}
+
+{% block body %}
+    <div class="btn-toolbar justify-content-between v-separated-bottom" role="toolbar">
+        <div class="btn-group" role="group" title="Создать">
+            <a class="btn btn-success btn-sm" href="{{ path(createRoute) }}">
+                <svg class="bi" width="16" height="16">
+                    <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#plus-square"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <table  id="manifest-table" class="table table-xsm table-striped table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Платформа</th>
+                <th>Версии</th>
+                <th class="buttons-column"></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for model in models %}
+                <tr data-manifest-id="{{ model.id }}">
+                    <td>{{ model.id }}</td>
+                    <td>{{ model.platform }}</td>
+                    <td>
+                        {% if model.getGameVersion(true) is not empty %}
+                            <ul>
+                            {% for version in model.getGameVersion(true) %}
+                                <li>{{ version }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-toolbar justify-content-between" role="toolbar">
+
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary btn-sm" href="{{ path(editRoute, {id: model.id}) }}"
+                                   title="Редактировать">
+                                    <svg class="bi" width="16" height="16">
+                                        <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#pencil-square"/>
+                                    </svg>
+                                </a>
+                                <a class="btn btn-outline-secondary btn-sm" href="{{ path('manifest-copy', {id: model.id}) }}"
+                                   title="Клонировать">
+                                    <svg class="bi" width="16" height="16">
+                                        <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#file-earmark-plus"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <div>
+        <button id="load-more-btn" class="btn btn-outline-primary " type="button">
+            <span class="btn-text">Load more</span>
+            <i class='fas fa-cog fa-spin'></i>
+        </button>
+    </div>
+
+    <form id="load-more-form">
+        <input type="hidden" name="id" value="">
+    </form>
+{% endblock %}
+
+{% block extraJs %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        function updateLastRecordTime() {
+            var lastChild = $('#manifest-table tr:last');
+
+            var id = lastChild.attr('data-manifest-id');
+            $("#load-more-form input[name=id]").attr('value', id);
+        }
+
+        let btnMore = document.getElementById('load-more-btn');
+        btnMore.addEventListener("click", function () {
+            let cb = function (data) {
+                let lastChild = $('#manifest-table tr:last');
+
+                $(data).insertAfter(lastChild);
+                updateLastRecordTime();
+            };
+
+            doAjaxDataCallback(
+                'load-more-btn',
+                'load-more-form',
+                '{{ path('manifest-load-more') }}',
+                cb,
+            );
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateLastRecordTime();
+        }, false);
+    </script>
+{% endblock %}

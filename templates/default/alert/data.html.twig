@@ -1,0 +1,17 @@
+{% if data is defined and data|length > 0 %}
+    <div class="card bg-mint">
+        <div class="card-header">
+            Extra data
+        </div>
+        <div class="card-body">
+            <table class="table table-xsm table-striped table-hover smallText">
+                {% for k,v in data %}
+                    <tr>
+                        <td>{{ k }}</td>
+                        <td>{{ v }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endif %}

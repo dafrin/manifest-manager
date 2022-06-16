@@ -1,0 +1,52 @@
+main-page:
+  path: /
+  controller: App\Controller\DefaultController::index
+
+bundle-index:
+  path: /bundle
+  controller: App\Controller\BundleController::index
+
+bundle-create:
+  path: /bundle/create
+  controller: App\Controller\BundleController::create
+
+bundle-edit:
+  path: /bundle/edit
+  controller: App\Controller\BundleController::edit
+
+manifest-index:
+  path: /manifest
+  controller: App\Controller\ManifestController::index
+
+manifest-create:
+  path: /manifest/create
+  controller: App\Controller\ManifestController::create
+
+manifest-edit:
+  path: /manifest/edit
+  controller: App\Controller\ManifestController::edit
+
+manifest-copy:
+    path: /manifest/copy
+    controller: App\Controller\ManifestController::copy
+
+get-new-version:
+  path: /api/get-new-version
+  controller: App\Controller\ApiController::getNewVersion
+
+get-manifest:
+  path: /api/get-manifest
+  controller: App\Controller\ApiController::getManifest
+
+add-version-to-manifest:
+  path: /api/add-version-to-manifest/{manifestId}
+  controller: App\Controller\ApiController::addVersionToManifest
+
+manifest-load-more:
+  path: /manifest/load-more
+  controller: App\Controller\ManifestController::loadMore
+
+
+swagger-index:
+  path: /swagger
+  controller: App\Controller\SwaggerController::index

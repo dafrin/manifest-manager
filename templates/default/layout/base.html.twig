@@ -1,0 +1,9 @@
+{% extends 'index.html.twig' %}
+
+{% block __content %}
+    <div id="extraInformationWarn" class="section alert alert-warning" style="display: none;"></div>
+
+    <div class="container-fluid">
+        {% block body %}{% endblock %}
+    </div>
+{% endblock %}

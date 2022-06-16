@@ -1,0 +1,14 @@
+.body-google-login {
+    height: 100%;
+}
+
+.html-google-login {
+    height: 100%;
+}
+
+.container-google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

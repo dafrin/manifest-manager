@@ -1,0 +1,58 @@
+{% extends 'default/layout/small.html.twig' %}
+
+{% block body %}
+    <div class="btn-toolbar justify-content-between v-separated-bottom" role="toolbar">
+        <div class="btn-group" role="group" title="Создать">
+            <a class="btn btn-success btn-sm" href="{{ path(createRoute) }}">
+                <svg class="bi" width="16" height="16">
+                    <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#plus-square"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-xsm table-striped table-hover">
+            <thead class="thead-dark">
+            <tr>
+                {% for field, name in fields %}
+                    <th>{{ name }}</th>
+                {% endfor %}
+                <th class="buttons-column"></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for model in models %}
+                <tr>
+                    {% for field, name in fields %}
+                        <td>{{ attribute(model, field) }}</td>
+                    {% endfor %}
+                    <td>
+                        <div class="btn-toolbar justify-content-between" role="toolbar">
+
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary btn-sm" href="{{ path(editRoute, {id: model.id}) }}"
+                                   title="Редактировать">
+                                    <svg class="bi" width="16" height="16">
+                                        <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#pencil-square"/>
+                                    </svg>
+                                </a>
+                                {% if deleteRoute != '' %}
+                                    <a class="btn btn-danger btn-sm" href="{{ path(deleteRoute, {id: model.id}) }}"
+                                       title="Удалить">
+                                        <svg class="bi" width="16" height="16">
+                                            <use xlink:href="{{ asset('img/bs/bootstrap-icons.svg') }}#x-square"/>
+                                        </svg>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

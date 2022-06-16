@@ -1,0 +1,200 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API for Manifest service.",
+        "version": "1.0.1",
+        "title": "Manifest Manager"
+    },
+    "host": "localhost",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "manifest",
+            "description": "Manifest management"
+        },
+        {
+            "name": "bundle",
+            "description": "Bundle management"
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/get-manifest": {
+            "get": {
+                "tags": [
+                    "manifest"
+                ],
+                "summary": "Get manifest data",
+                "description": "Receive bundle data in manifest",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "platform_id",
+                        "required": true,
+                        "type": "integer",
+                        "enum": [
+                            3,
+                            4,
+                            9,
+                            20,
+                            27,
+                            30
+                        ],
+                        "description": "Server platform_id:\n * 3 - IPHONE\n * 4 - ANDROID\n * 9 - AMAZON\n * 20 - WIN8_STORE\n * 27 - ANDROID_SAMSUNG\n * 30 - ANDROID_BETA\n"
+                    },
+                    {
+                        "in": "query",
+                        "name": "game_version",
+                        "description": "Client game version like 8.10.11, 8.10.0, 8.10.x. Version which was put inside bundle",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "manifest": {
+                                    "$ref": "#/definitions/Manifest"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-new-version": {
+            "post": {
+                "tags": [
+                    "bundle"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "bundles",
+                        "description": "You should pass bundle IDs",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "bundles": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bundles with new version",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "bundles": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Bundle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add-version-to-manifest/{manifestId}": {
+            "post": {
+                "tags": [
+                    "manifest"
+                ],
+                "summary": "Add new version to existing manifest",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "manifestId",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "query",
+                        "name": "game_version",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Version successfully added",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Manifest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "platform_id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "game_version": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "bundles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Bundle"
+                    }
+                }
+            }
+        },
+        "Bundle": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "critical_data": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "is_local": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "is_low_definition": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "version": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        }
+    }
+}
